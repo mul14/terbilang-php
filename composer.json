@@ -1,0 +1,26 @@
+{
+  "name": "nasution/terbilang",
+  "description": "Convert numbers into words in Indonesian language",
+  "homepage": "https://github.com/mul14/terbilang-php",
+  "keywords": ["terbilang", "indonesia"],
+  "type": "library",
+  "license": "WTFPL",
+  "authors": [
+    {
+      "name": "Mulia Arifandi Nasution",
+      "email": "mul14.net@gmail.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Nasution\\": "src/Nasution"
+    }
+  },
+  "require": {
+    "php": ">= 5.3.3"
+  },
+  "require-dev": {
+    "phpspec/phpspec": "~2.0"
+  },
+  "minimum-stability": "stable"
+}
