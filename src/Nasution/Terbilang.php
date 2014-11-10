@@ -2,8 +2,6 @@
 
 class Terbilang
 {
-    protected static $terbilang;
-
     public function convert($number)
     {
         $number = str_replace('.', '', $number);
@@ -46,11 +44,6 @@ class Terbilang
             $str = preg_replace('/\s{2,}/', ' ', trim($str));
         }
 
-        return static::$terbilang = $str;
-    }
-
-    public function __toString()
-    {
-        return $this->terbilang;
+        return $str;
     }
 }
