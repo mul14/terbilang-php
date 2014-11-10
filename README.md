@@ -1,5 +1,11 @@
 # Terbilang
 
+[![Build Status](https://travis-ci.org/mul14/terbilang-php.svg?branch=master)](https://travis-ci.org/mul14/terbilang-php.svg)
+[![Latest Stable Version](https://poser.pugx.org/nasution/terbilang/v/stable.svg)](https://packagist.org/packages/nasution/terbilang)
+[![Total Downloads](https://poser.pugx.org/nasution/terbilang/downloads.svg)](https://packagist.org/packages/nasution/terbilang)
+[![Latest Unstable Version](https://poser.pugx.org/nasution/terbilang/v/unstable.svg)](https://packagist.org/packages/nasution/terbilang)
+[![License](https://poser.pugx.org/nasution/terbilang/license.svg)](https://github.com/mul14/terbilang-php/blob/master/LICENSE)
+
 Convert numbers into words in Indonesian language.
 
 ## Installation
