@@ -2,7 +2,7 @@
 
 class Terbilang
 {
-    public function convert($number)
+    public static function convert($number)
     {
         $number = str_replace('.', '', $number);
 
