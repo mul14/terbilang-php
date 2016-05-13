@@ -6,6 +6,8 @@ class Terbilang
     {
         $number = str_replace('.', '', $number);
 
+        $number = is_array($number) ? implode(',', $number) : $number;
+
         if ( ! is_numeric($number)) throw new NotNumbersException;
 
         $base    = array('nol', 'satu', 'dua', 'tiga', 'empat', 'lima', 'enam', 'tujuh', 'delapan', 'sembilan');
