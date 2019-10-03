@@ -18,6 +18,18 @@ composer require nasution/terbilang
 
 ## Usage
 
+Use `terbilang()` helper
+
+```php
+<?php
+
+require 'vendor/autoload.php';
+
+echo terbilang(421);                  // empat ratus dua puluh satu
+```
+
+Old examples
+
 ```php
 <?php
 
@@ -47,7 +59,7 @@ echo $terbilang->convert(2014);    // dua ribu empat belas
 echo Terbilang::convert('123304'); // seratus dua puluh tiga ribu tiga ratus empat
 ```
 
-Another example
+Another examples
 
 ```php
 echo Terbilang::convert('1000000');          // satu juta
