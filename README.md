@@ -10,24 +10,10 @@ Convert numbers into words in Indonesian language.
 
 ## Installation
 
-Download [composer.phar](http://getcomposer.org/composer.phar) if you don't have one. Then run it from terminal.
+Run [composer](http://getcomposer.org) command
 
 ```bash
-php composer.phar require "nasution/terbilang: *"
-```
-
-Or, you can put into your `composer.json` file.
-
-```json
-"require": {
-  "nasution/terbilang": "*"
-}
-```
-
-Then run composer update
-
-```bash
-php composer.phar update
+composer require nasution/terbilang
 ```
 
 ## Usage
