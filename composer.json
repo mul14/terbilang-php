@@ -14,7 +14,10 @@
   "autoload": {
     "psr-4": {
       "Nasution\\": "src/Nasution"
-    }
+    },
+    "files": [
+        "src/terbilang.php"
+    ]
   },
   "require": {
     "php": ">= 5.3.3"
