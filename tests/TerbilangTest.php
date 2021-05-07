@@ -7,7 +7,7 @@ class TerbilangTest extends \PHPUnit_Framework_TestCase
     /**
      * Setup.
      *
-     * @group Terbilang
+     * @group default
      */
     public function setUp()
     {
@@ -17,7 +17,7 @@ class TerbilangTest extends \PHPUnit_Framework_TestCase
     /**
      * Tear down.
      *
-     * @group Terbilang
+     * @group default
      */
     public function tearDown()
     {
@@ -27,7 +27,7 @@ class TerbilangTest extends \PHPUnit_Framework_TestCase
     /**
      * Test for Terbilang::convert().
      *
-     * @group Terbilang
+     * @group default
      */
     public function testCanConvertNumbersIntoWords()
     {
@@ -71,7 +71,7 @@ class TerbilangTest extends \PHPUnit_Framework_TestCase
     /**
      * Test for Terbilang::convert().
      *
-     * @group Terbilang
+     * @group default
      */
     public function testCanConvertNumbersInString()
     {
@@ -84,7 +84,7 @@ class TerbilangTest extends \PHPUnit_Framework_TestCase
     /**
      * Test for Terbilang::convert().
      *
-     * @group Terbilang
+     * @group default
      */
     public function testCanConvertNumbersWithDotNotations()
     {
@@ -99,7 +99,7 @@ class TerbilangTest extends \PHPUnit_Framework_TestCase
      * Test for Terbilang::convert().
      *
      * @expectedException \Nasution\NotNumbersException
-     * @group Terbilang
+     * @group default
      */
     public function testShouldThrowAnErrorIfValueIsNotNumeric()
     {
@@ -110,7 +110,7 @@ class TerbilangTest extends \PHPUnit_Framework_TestCase
     /**
      * Test for Terbilang::revert().
      *
-     * @group Terbilang
+     * @group default
      */
     public function testCanRevertWordsIntoNumbers()
     {
@@ -154,7 +154,7 @@ class TerbilangTest extends \PHPUnit_Framework_TestCase
     /**
      * Test for Terbilang::revert().
      *
-     * @group Terbilang
+     * @group default
      */
     public function testRevertShouldIgnoreCaseSensitivity()
     {
@@ -167,7 +167,7 @@ class TerbilangTest extends \PHPUnit_Framework_TestCase
      * Test for Terbilang::revert().
      *
      * @expectedException \Nasution\NotStringsException
-     * @group Terbilang
+     * @group default
      */
     public function testShouldThrowAnErrorIfValueIsNotString()
     {
@@ -181,7 +181,7 @@ class TerbilangTest extends \PHPUnit_Framework_TestCase
      * Test for Terbilang::revert().
      *
      * @expectedException \Nasution\ContainsNonNumericWords
-     * @group Terbilang
+     * @group default
      */
     public function testShouldThrowAnErrorIfValueContainsNonNumericWords()
     {
