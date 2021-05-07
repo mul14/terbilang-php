@@ -12,6 +12,7 @@ jobs:
   tests:
     name: PHP ${{ matrix.php }}-${{ matrix.os }}
     env:
+      extensions: mbstring
       key-php5: cache-v1
       key-php7: cache-v2
 

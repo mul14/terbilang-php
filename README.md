@@ -1,6 +1,6 @@
 # Terbilang
 
-[![Build Status](https://travis-ci.org/mul14/terbilang-php.svg?branch=master)](https://travis-ci.org/mul14/terbilang-php)
+[![Build Status](https://github.com/mul14/terbilang-php/workflows/build/badge.svg)](https://github.com/mul14/terbilang-php/actions/workflows/build.yml)
 [![Latest Stable Version](https://poser.pugx.org/nasution/terbilang/v/stable.svg)](https://packagist.org/packages/nasution/terbilang)
 [![Total Downloads](https://poser.pugx.org/nasution/terbilang/downloads.svg)](https://packagist.org/packages/nasution/terbilang)
 [![Latest Unstable Version](https://poser.pugx.org/nasution/terbilang/v/unstable.svg)](https://packagist.org/packages/nasution/terbilang)
