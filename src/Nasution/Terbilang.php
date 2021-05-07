@@ -6,7 +6,7 @@ use SplStack;
 
 class Terbilang
 {
-    private static $dictionaries = array(
+    private static $reverts = array(
         'nol' => '0',
         'satu' => '1',
         'dua' => '2',
@@ -48,9 +48,21 @@ class Terbilang
     {
         $number = str_replace('.', '', $number);
 
-        if ( ! is_numeric($number)) throw new NotNumbersException;
+        if (! is_numeric($number)) {
+            throw new NotNumbersException();
+        }
 
-        $base    = array('nol', 'satu', 'dua', 'tiga', 'empat', 'lima', 'enam', 'tujuh', 'delapan', 'sembilan');
+        $base = array(
+            'nol',
+            'satu',
+            'dua',
+            'tiga',
+            'empat',
+            'lima',
+            'enam',
+            'tujuh',
+            'delapan',
+            'sembilan');
         $numeric = array('1000000000000000', '1000000000000', '1000000000000', 1000000000, 1000000, 1000, 100, 10, 1);
         $unit    = array('kuadriliun', 'triliun', 'biliun', 'milyar', 'juta', 'ribu', 'ratus', 'puluh', '');
         $str     = null;
@@ -92,32 +104,32 @@ class Terbilang
     /**
      * Revert back terbilang's result into it's numeric value.
      *
-     * @param string $terbilang
+     * @param string $words
      *
      * @return float
      */
-    public static function revert($terbilang)
+    public static function revert($words)
     {
-        if (! is_string($terbilang)) {
+        if (! is_string($words)) {
             throw new NotStringsException(sprintf(
                 'Only string are supported for conversion, %s given.',
-                gettype($terbilang)
+                gettype($words)
             ));
         }
 
-        $terbilang = trim(strtolower($terbilang));
-        $terbilang = preg_replace('/\s+/', ' ', $terbilang);
-        $terbilang = preg_replace(
+        $words = trim(strtolower($words));
+        $words = preg_replace('/\s+/', ' ', $words);
+        $words = preg_replace(
             '/se(kuadriliun|triliun|biliun|milyar|juta|ribu|ratus|puluh)/',
             'satu \1',
-            $terbilang
+            $words
         );
-        $terbilang = strtr($terbilang, static::$dictionaries);
+        $words = strtr($words, static::$reverts);
 
-        $parts = explode(' ', $terbilang);
+        $parts = explode(' ', $words);
         $parts = array_map(function ($word) {
             // sanity check :)
-            if (! in_array($word, static::$dictionaries)) {
+            if (! in_array($word, static::$reverts)) {
                 throw new ContainsNonNumericWords(sprintf(
                     'Given string contains non-numeric words: %s',
                     $word
@@ -128,14 +140,14 @@ class Terbilang
         }, $parts);
 
         $stack = new SplStack();
-        $tersebut = 0;
+        $output = 0;
         $remaining = null;
 
         foreach ($parts as $part) {
             if (! $stack->isEmpty()) {
                 if ($stack->top() > $part) {
                     if ($remaining >= 1000) {
-                        $tersebut += $stack->pop();
+                        $output += $stack->pop();
                         $stack->push($part);
                     } else {
                         $stack->push($stack->pop() + $part);
@@ -150,8 +162,8 @@ class Terbilang
             $remaining = $part;
         }
 
-        $tersebut += $stack->pop();
+        $output += $stack->pop();
 
-        return $tersebut;
+        return $output;
     }
 }
