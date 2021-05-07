@@ -1,9 +1,8 @@
 <?php
 
-use PHPUnit\Framework\TestCase;
 use Nasution\Terbilang;
 
-class TerbilangTest extends TestCase
+class TerbilangTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * Setup.
@@ -99,14 +98,12 @@ class TerbilangTest extends TestCase
     /**
      * Test for Terbilang::convert().
      *
+     * @expectedException \Nasution\NotNumbersException
      * @group Terbilang
      */
     public function testShouldThrowAnErrorIfValueIsNotNumeric()
     {
-        $this->expectException('\Nasution\NotNumbersException');
         Terbilang::convert('Makan Nasi Minum Susu');
-
-        $this->expectException('\Nasution\NotNumbersException');
         Terbilang::convert('Makan Nasi Minum 2 Gelas Susu');
     }
 
@@ -169,37 +166,27 @@ class TerbilangTest extends TestCase
     /**
      * Test for Terbilang::revert().
      *
+     * @expectedException \Nasution\NotStringsException
      * @group Terbilang
      */
     public function testShouldThrowAnErrorIfValueIsNotString()
     {
-        $this->expectException('\Nasution\NotStringsException');
         Terbilang::revert(10);
-
-        $this->expectException('\Nasution\NotStringsException');
         Terbilang::revert(true);
-
-        $this->expectException('\Nasution\NotStringsException');
         Terbilang::revert(array());
-
-        $this->expectException('\Nasution\NotStringsException');
         Terbilang::revert(new stdClass());
     }
 
     /**
      * Test for Terbilang::revert().
      *
+     * @expectedException \Nasution\ContainsNonNumericWords
      * @group Terbilang
      */
     public function testShouldThrowAnErrorIfValueContainsNonNumericWords()
     {
-        $this->expectException('\Nasution\ContainsNonNumericWords');
         Terbilang::revert('ayam tiga puluh');
-
-        $this->expectException('\Nasution\ContainsNonNumericWords');
         Terbilang::revert('tiga ayam puluh');
-
-        $this->expectException('\Nasution\ContainsNonNumericWords');
         Terbilang::revert('tiga puluh ayam');
     }
 }
