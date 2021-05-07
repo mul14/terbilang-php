@@ -127,9 +127,10 @@ class Terbilang
         $words = strtr($words, static::$reverts);
 
         $parts = explode(' ', $words);
-        $parts = array_map(function ($word) {
+        $reverts = static::$reverts;
+        $parts = array_map(function ($word) use ($reverts) {
             // sanity check :)
-            if (! in_array($word, static::$reverts)) {
+            if (! in_array($word, $reverts)) {
                 throw new ContainsNonNumericWords(sprintf(
                     'Given string contains non-numeric words: %s',
                     $word
