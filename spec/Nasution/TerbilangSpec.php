@@ -1,16 +1,17 @@
-<?php namespace spec\Nasution;
+<?php
+
+namespace spec\Nasution;
 
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 
 class TerbilangSpec extends ObjectBehavior
 {
-    function it_is_initializable()
+    public function it_is_initializable()
     {
         $this->shouldHaveType('Nasution\Terbilang');
     }
 
-    function it_can_convert_numbers_into_words()
+    public function it_can_convert_numbers_into_words()
     {
         $this->convert(0)->shouldReturn('nol');
         $this->convert(1)->shouldReturn('satu');
@@ -56,13 +57,13 @@ class TerbilangSpec extends ObjectBehavior
         $this->convert(1234567)->shouldReturn('satu juta dua ratus tiga puluh empat ribu lima ratus enam puluh tujuh');
     }
 
-    function it_can_convert_numbers_in_string()
+    public function it_can_convert_numbers_in_string()
     {
         $this->convert('1000000')->shouldReturn('satu juta');
         $this->convert('1234567')->shouldReturn('satu juta dua ratus tiga puluh empat ribu lima ratus enam puluh tujuh');
     }
 
-    function it_can_convert_numbers_with_dot_notations()
+    public function it_can_convert_numbers_with_dot_notations()
     {
         $this->convert('10.000.000')->shouldReturn('sepuluh juta');
 
@@ -75,8 +76,97 @@ class TerbilangSpec extends ObjectBehavior
         $this->convert('1.000.000.000.000.000')->shouldReturn('satu kuadriliun');
     }
 
-    function it_should_thown_an_error_if_value_is_not_numeric()
+    public function it_should_thown_an_error_if_value_is_not_numeric()
     {
         $this->shouldThrow('Nasution\NotNumbersException')->duringConvert('Makan Nasi Minum Susu');
+    }
+
+    /**
+     * Spec for Terbilang::revert().
+     *
+     * @return void
+     */
+    public function it_can_revert_words_into_numbers()
+    {
+        $this->convert('nol')->shouldReturn(0);
+        $this->revert('satu')->shouldReturn(1);
+        $this->revert('dua')->shouldReturn(2);
+        $this->revert('tiga')->shouldReturn(3);
+        $this->revert('empat')->shouldReturn(4);
+        $this->revert('lima')->shouldReturn(5);
+        $this->revert('enam')->shouldReturn(6);
+        $this->revert('tujuh')->shouldReturn(7);
+        $this->revert('delapan')->shouldReturn(8);
+        $this->revert('sembilan')->shouldReturn(9);
+        $this->revert('sepuluh')->shouldReturn(10);
+
+        $this->revert('sebelas')->shouldReturn(11);
+        $this->revert('dua belas')->shouldReturn(12);
+        $this->revert('tiga belas')->shouldReturn(13);
+        $this->revert('empat belas')->shouldReturn(14);
+        $this->revert('lima belas')->shouldReturn(15);
+        $this->revert('enam belas')->shouldReturn(16);
+        $this->revert('tujuh belas')->shouldReturn(17);
+        $this->revert('delapan belas')->shouldReturn(18);
+        $this->revert('sembilan belas')->shouldReturn(19);
+        $this->revert('dua puluh')->shouldReturn(20);
+
+        $this->revert('empat puluh dua')->shouldReturn(42);
+
+        $this->revert('sembilan puluh sembilan')->shouldReturn(99);
+
+        $this->revert('seratus')->shouldReturn(100);
+
+        $this->revert('seratus dua puluh satu')->shouldReturn(121);
+
+        $this->revert('lima ratus empat')->shouldReturn(504);
+
+        $this->revert('lima ratus lima puluh empat')->shouldReturn(554);
+
+        $this->revert('seribu')->shouldReturn(1000);
+
+        $this->revert('dua puluh ribu')->shouldReturn(20000);
+
+        $this->revert('satu juta')->shouldReturn(1000000);
+
+        $this->revert('satu juta dua ratus tiga puluh empat ribu lima ratus enam puluh tujuh')
+            ->shouldReturn(1234567);
+    }
+
+    /**
+     * Spec for Terbilang::revert().
+     *
+     * @return void
+     */
+    public function it_should_ignore_case_sensitivity()
+    {
+        $this->convert('dua belas')->shouldReturn(12);
+        $this->convert('duA BeLaS')->shouldReturn(12);
+        $this->convert('DUA BELAS')->shouldReturn(12);
+    }
+
+    /**
+     * Spec for Terbilang::revert().
+     *
+     * @return void
+     */
+    public function it_should_thown_an_error_if_value_is_not_string()
+    {
+        $this->shouldThrow('Nasution\NotStringsException')->duringRevert(10);
+        $this->shouldThrow('Nasution\NotStringsException')->duringRevert(true);
+        $this->shouldThrow('Nasution\NotStringsException')->duringRevert([]);
+        $this->shouldThrow('Nasution\NotStringsException')->duringRevert(new stdClass());
+    }
+
+    /**
+     * Spec for Terbilang::revert().
+     *
+     * @return void
+     */
+    public function it_should_thown_an_error_if_value_contains_non_numeric_words()
+    {
+        $this->shouldThrow('Nasution\ContainsNonNumericWords')->duringRevert('ayam tiga puluh');
+        $this->shouldThrow('Nasution\ContainsNonNumericWords')->duringRevert('tiga ayam puluh');
+        $this->shouldThrow('Nasution\ContainsNonNumericWords')->duringRevert('tiga puluh ayam');
     }
 }
