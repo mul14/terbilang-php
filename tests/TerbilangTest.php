@@ -8,7 +8,7 @@ class TerbilangTest extends TestCase
     /**
      * Setup.
      *
-     * @return void
+     * @group Terbilang
      */
     public function setUp()
     {
@@ -18,7 +18,7 @@ class TerbilangTest extends TestCase
     /**
      * Tear down.
      *
-     * @return void
+     * @group Terbilang
      */
     public function tearDown()
     {
@@ -28,7 +28,7 @@ class TerbilangTest extends TestCase
     /**
      * Test for Terbilang::convert().
      *
-     * @return void
+     * @group Terbilang
      */
     public function testCanConvertNumbersIntoWords()
     {
@@ -72,7 +72,7 @@ class TerbilangTest extends TestCase
     /**
      * Test for Terbilang::convert().
      *
-     * @return void
+     * @group Terbilang
      */
     public function testCanConvertNumbersInString()
     {
@@ -85,7 +85,7 @@ class TerbilangTest extends TestCase
     /**
      * Test for Terbilang::convert().
      *
-     * @return void
+     * @group Terbilang
      */
     public function testCanConvertNumbersWithDotNotations()
     {
@@ -99,7 +99,7 @@ class TerbilangTest extends TestCase
     /**
      * Test for Terbilang::convert().
      *
-     * @return void
+     * @group Terbilang
      */
     public function testShouldThrowAnErrorIfValueIsNotNumeric()
     {
@@ -113,7 +113,7 @@ class TerbilangTest extends TestCase
     /**
      * Test for Terbilang::revert().
      *
-     * @return void
+     * @group Terbilang
      */
     public function testCanRevertWordsIntoNumbers()
     {
@@ -157,7 +157,7 @@ class TerbilangTest extends TestCase
     /**
      * Test for Terbilang::revert().
      *
-     * @return void
+     * @group Terbilang
      */
     public function testRevertShouldIgnoreCaseSensitivity()
     {
@@ -169,7 +169,7 @@ class TerbilangTest extends TestCase
     /**
      * Test for Terbilang::revert().
      *
-     * @return void
+     * @group Terbilang
      */
     public function testShouldThrowAnErrorIfValueIsNotString()
     {
@@ -189,7 +189,7 @@ class TerbilangTest extends TestCase
     /**
      * Test for Terbilang::revert().
      *
-     * @return void
+     * @group Terbilang
      */
     public function testShouldThrowAnErrorIfValueContainsNonNumericWords()
     {
