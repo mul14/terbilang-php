@@ -1,4 +1,6 @@
-<?php namespace Nasution;
+<?php
+
+namespace Nasution;
 
 use Exception;
 
