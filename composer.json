@@ -1,6 +1,6 @@
 {
   "name": "nasution/terbilang",
-  "description": "Convert numbers into words in Indonesian language",
+  "description": "Convert numbers into words (and vice-versa) in Indonesian language",
   "homepage": "https://github.com/mul14/terbilang-php",
   "keywords": ["terbilang", "indonesia"],
   "type": "library",
@@ -23,7 +23,19 @@
     "php": ">= 5.3.3"
   },
   "require-dev": {
-    "phpspec/phpspec": "~2.0"
+    "cweagans/composer-patches": "^1.7",
+    "phpunit/phpunit": "4.8.34"
   },
-  "minimum-stability": "stable"
+  "extra": {
+    "composer-exit-on-patch-failure": true,
+    "patches": {
+        "phpunit/phpunit-mock-objects": {
+          "Fix PHP 7 and 8 compatibility": "https://cdn.jsdelivr.net/gh/esyede/phpunit-patches/phpunit_mock_objects.patch"
+        },
+        "phpunit/phpunit": {
+          "Fix PHP 7 compatibility": "https://cdn.jsdelivr.net/gh/esyede/phpunit-patches/phpunit_php7.patch",
+          "Fix PHP 8 compatibility": "https://cdn.jsdelivr.net/gh/esyede/phpunit-patches/phpunit_php8.patch"
+        }
+    }
+  }
 }

@@ -1,0 +1,104 @@
+on:
+    push:
+        paths:
+            - '**.php'
+    pull_request:
+        paths:
+            - '**.php'
+
+name: build
+
+jobs:
+  tests:
+    name: PHP ${{ matrix.php }}-${{ matrix.os }}
+    env:
+      extensions: mbstring
+      key-php5: cache-v1
+      key-php7: cache-v2
+
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os:
+          - ubuntu-latest
+
+        php:
+          - "5.3"
+          - "5.4"
+          - "5.5"
+          - "5.6"
+          - "7.0"
+          - "7.1"
+          - "7.2"
+          - "7.3"
+          - "7.4"
+          - "8.0"
+
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+
+      - name: setup cache for 5.3 - 5.6
+        if: matrix.php < '7.0'
+        id: cache-env-php5
+        uses: shivammathur/cache-extensions@v1
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: ${{ env.extensions-php5 }}
+          key: ${{ env.key-php5 }}
+
+      - name: setup cache for 7.0 - 8.0
+        if: matrix.php >= '7.0'
+        id: cache-env-php7
+        uses: shivammathur/cache-extensions@v1
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: ${{ env.extensions-php7 }}
+          key: ${{ env.key-php7 }}
+
+      - name: setup cache extensions for 5.4 - 5.6
+        if: matrix.php < '7.0'
+        uses: actions/cache@v1
+        with:
+          path: ${{ steps.cache-env-php5.outputs.dir }}
+          key: ${{ steps.cache-env-php5.outputs.key }}
+          restore-keys: ${{ steps.cache-env-php5.outputs.key }}
+
+      - name: setup cache extensions for 7.0 - 8.0
+        if: matrix.php >= '7.0'
+        uses: actions/cache@v1
+        with:
+          path: ${{ steps.cache-env-php7.outputs.dir }}
+          key: ${{ steps.cache-env-php7.outputs.key }}
+          restore-keys: ${{ steps.cache-env-php7.outputs.key }}
+
+      - name: install php and extensions
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: ${{ env.extensions }}
+          ini-values: date.timezone='UTC'
+          coverage: xdebug
+          tools: composer:v1, pecl
+
+      - name: find composer cache directory (linux)
+        run: echo "COMPOSER_CACHE_DIR=$(composer config cache-dir)" >> $GITHUB_ENV
+
+      - name: find composer cache directory (windows)
+        if: matrix.os == 'windows-latest'
+        run: echo "COMPOSER_CACHE_DIR=~\AppData\Local\Composer" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+
+      - name: install cache dependencies with composer
+        uses: actions/cache@v1
+        with:
+          path: ${{ env.COMPOSER_CACHE_DIR }}
+          key: php${{ matrix.php }}-composer-${{ hashFiles('**/composer.json') }}
+          restore-keys: |
+            php${{ matrix.php }}-composer-
+
+      - name: update dependencies with composer
+        run: composer update --no-interaction --no-progress --optimize-autoloader --ansi
+
+      - name: run tests with phpunit 4.8.34
+        run: php ./vendor/bin/phpunit
